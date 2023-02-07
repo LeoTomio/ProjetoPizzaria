@@ -1,9 +1,10 @@
-import { Router, Response, Request } from 'express'
+import { Router } from 'express'
+
+import { CreateUserController } from './controllers/user/CreateUser'
 
 const router = Router();
 
-router.get('/teste', (request: Request, response: Response) => {
-    return response.json({ name: 'Leonardo Tomio' })
-})
+// Rotas user
+router.post('/users', new CreateUserController().handle)
 
 export { router }
