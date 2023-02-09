@@ -1,5 +1,6 @@
 import { UserRequest } from '../../interface/user/CreateUser'
 import prismaClient from '../../prisma'
+import { hash } from 'bcryptjs'
 
 class CreateUserService {
     async execute(response: UserRequest) {
@@ -15,7 +16,7 @@ class CreateUserService {
             if (exists)
                 throw new Error('Usuario ja existe')
         })
-
+        response.password = await hash(response.password, 8)
         const user = await prismaClient.user.create({
             data: {
                 ...response
