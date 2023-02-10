@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { PayLoad } from "../../interface/user/PayLoad";
+import { PayLoad } from "../interface/user/PayLoad";
 
 export function isAuthenticated(request: Request,
     response: Response, next: NextFunction) {
@@ -18,8 +18,14 @@ export function isAuthenticated(request: Request,
             process.env.JWT_SECRET
         ) as PayLoad;
 
+        //recuperar o id do token e colocar dentro de uma variavel user_id dentro do request.
+        request.user_id = sub
+
         return next();
+
     } catch {
+
         return response.status(401).end();
+
     }
 }
