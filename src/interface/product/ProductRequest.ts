@@ -6,4 +6,9 @@ interface ProductRequest {
     category_id: string;
 }
 
-export { ProductRequest }
+interface ProductList {
+    category_id: string;
+}
+
+
+export { ProductRequest, ProductList }
