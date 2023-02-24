@@ -1,5 +1,5 @@
 import prismaClient from "../../prisma";
-import { OrderRequest } from "../../interface/order/CreateOrder";
+import { OrderRequest } from "../../interface/order/Order";
 
 
 class CreateOrderService {
