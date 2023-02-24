@@ -1,6 +1,11 @@
-interface ItemRequest {
+interface ItemAdd {
     amount: number;
     order_id: string;
     product_id: string;
 }
-export default ItemRequest;
+
+interface ItemRemove {
+    item_id: string;
+}
+
+export { ItemAdd, ItemRemove};
