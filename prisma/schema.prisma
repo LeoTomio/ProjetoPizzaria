@@ -43,7 +43,7 @@ model Product {
 
   category    Category @relation(fields: [category_id], references: [id])
   category_id String
-  Items        Item[]
+  Items       Item[]
 
   @@map("products")
 }
@@ -52,6 +52,7 @@ model Order {
   id         String    @id @default(uuid())
   table      Int
   status     Boolean   @default(false)
+  name       String?
   draft      Boolean   @default(true)
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
