@@ -6,8 +6,9 @@ import uploadConfig from './config/multer'
 import { AuthUserController, CreateUserController, DetailuserController } from './resources/user/controler';
 import { CreateCategoryController, ListCategoryController } from './resources/category/controler';
 import { CreateProductController, ListByCategoryController } from './resources/product/controler';
-import { CreateOrderController, DetailOrderController, ListOrdersController, RemoveOrderController, SendOrderController } from './resources/order/controler';
+import { CreateOrderController, DetailOrderController, FinishOrderController, ListOrdersController, RemoveOrderController, SendOrderController } from './resources/order/controler';
 import { AddItemController, RemoveItemController } from './resources/order/item/controller';
+import { FinishOrderService } from './resources/order/service';
 
 
 const router = Router();
@@ -48,5 +49,7 @@ router.put('/order/send', isAuthenticated, new SendOrderController().handle)
 router.get('/order/list', isAuthenticated, new ListOrdersController().handle)
 
 router.get('/order/detail', isAuthenticated, new DetailOrderController().handle)
+
+router.put('/order/finish', isAuthenticated, new FinishOrderController().handle)
 
 export { router }

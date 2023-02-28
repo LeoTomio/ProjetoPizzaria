@@ -71,4 +71,18 @@ class DetailOrderService {
     }
 }
 
-export { CreateOrderService, RemoveOrderService, SendOrderService, ListOrdersService, DetailOrderService }
+class FinishOrderService {
+    async execute(order_id: string) {
+        const order = await prismaClient.order.update({
+            data: {
+                status: true
+            },
+            where: {
+                id: order_id
+            }
+        })
+        return order
+    }
+}
+
+export { CreateOrderService, RemoveOrderService, SendOrderService, ListOrdersService, DetailOrderService, FinishOrderService }
