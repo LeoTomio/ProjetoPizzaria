@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { CreateOrderService, RemoveOrderService } from "./service";
+import { Request, response, Response } from "express";
+import { CreateOrderService, DetailOrderService, ListOrdersService, RemoveOrderService, SendOrderService } from "./service";
 
 class CreateOrderController {
     async handle(request: Request, respose: Response) {
@@ -22,4 +22,35 @@ class RemoveOrderController {
     }
 }
 
-export { RemoveOrderController, CreateOrderController }
+class SendOrderController {
+    async handle(request: Request, response: Response) {
+
+        const order_id = request.body.order_id as string
+        const sendOrder = new SendOrderService();
+        const order = await sendOrder.execute(order_id)
+
+        return response.json(order)
+    }
+}
+
+class ListOrdersController {
+    async handle(request: Request, response: Response) {
+
+        const listOrders = new ListOrdersService();
+        const orders = await listOrders.execute();
+
+        return response.json(orders)
+    }
+}
+
+class DetailOrderController {
+    async handle(request: Request, response: Response) {
+
+        const order_id = request.query.order_id as string
+        const detailOrder = new DetailOrderService();
+        const order = await detailOrder.execute(order_id)
+        return response.json(order)
+    }
+}
+
+export { RemoveOrderController, CreateOrderController, SendOrderController, ListOrdersController, DetailOrderController }

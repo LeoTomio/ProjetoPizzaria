@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { PayLoad } from "../interface/user/PayLoad";
+import { PayLoad } from "../resources/user/interface";
+
 
 export function isAuthenticated(request: Request,
     response: Response, next: NextFunction) {
