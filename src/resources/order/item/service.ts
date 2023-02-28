@@ -1,4 +1,4 @@
-import { ItemAdd, ItemRemove } from "../../../interface/order/Item";
+import { ItemAdd, ItemRemove } from "./interface";
 import prismaClient from "../../../prisma";
 
 class AddItemService {

@@ -1,5 +1,5 @@
 import prismaClient from "../../prisma";
-import { ProductList } from "../../interface/product/ProductRequest";
+import { ProductRequest } from "./interface";
 
 class ListByCategoryService {
     async executa(category_id: string) {
@@ -12,4 +12,11 @@ class ListByCategoryService {
     }
 }
 
-export { ListByCategoryService }
+class CreateProductService {
+    async execute(response: ProductRequest) {
+        const product = await prismaClient.product.create({ data: { ...response } })
+        return { product }
+    }
+}
+
+export { ListByCategoryService, CreateProductService }
