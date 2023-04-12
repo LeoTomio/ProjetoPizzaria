@@ -1,14 +1,13 @@
-import { Router } from 'express'
-import multer from 'multer'
+import { Router } from 'express';
+import multer from 'multer';
 
+import uploadConfig from './config/multer';
 import { isAuthenticated } from './middlewares/isAuthenticated';
-import uploadConfig from './config/multer'
-import { AuthUserController, CreateUserController, DetailuserController } from './resources/user/controler';
 import { CreateCategoryController, ListCategoryController } from './resources/category/controler';
-import { CreateProductController, ListByCategoryController } from './resources/product/controler';
 import { CreateOrderController, DetailOrderController, FinishOrderController, ListOrdersController, RemoveOrderController, SendOrderController } from './resources/order/controler';
 import { AddItemController, RemoveItemController } from './resources/order/item/controller';
-import { FinishOrderService } from './resources/order/service';
+import { CreateProductController, ListByCategoryController } from './resources/product/controler';
+import { AuthUserController, CreateUserController, DetailuserController } from './resources/user/controler';
 
 
 const router = Router();
@@ -52,4 +51,4 @@ router.get('/order/detail', isAuthenticated, new DetailOrderController().handle)
 
 router.put('/order/finish', isAuthenticated, new FinishOrderController().handle)
 
-export { router }
+export { router };
