@@ -1,9 +1,9 @@
 import crypto from 'crypto';
 import multer from "multer";
-
+import fs from 'fs'
 import { extname, resolve } from "path"
 
-export default {
+export class MulterFunction {
     upload(folder: string) {
         return {
             storage: multer.diskStorage({
@@ -17,4 +17,13 @@ export default {
             })
         }
     }
+
+    deleteImg(path: string) {
+        if (fs.existsSync(path)) { 
+            fs.unlinkSync(path);
+            console.log('Imagem excluída com sucesso.');
+        }
+    }
+
+
 }

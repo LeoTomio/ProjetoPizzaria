@@ -3,7 +3,7 @@ import express, { NextFunction, Request, Response } from 'express'
 import 'express-async-errors'
 import path from 'path'
 
-import { router } from './routes'
+import { router } from './routes/routes'
 
 const app = express();
 app.use(express.json());
