@@ -1,30 +1,56 @@
 import { Request, Response } from "express";
-import { CreateProductService, ListByCategoryService } from "./service";
+import { ProductService } from "./service";
 
-class ListByCategoryController {
-    async handle(request: Request, response: Response) {
-
-        const listByCategory = new ListByCategoryService();
-        const products = await listByCategory.executa(String(request.query.category_id))
-
-        return response.json(products)
+export class ProductController {
+    async List(request: Request, response: Response) {
+        try {
+            const listProduct = new ProductService();
+            const products = await listProduct.List(String(request.query.category_id))
+            return response.json(products)
+        } catch (error) {
+            console.log(error)
+            return error
+        }
     }
-} 
 
-class CreateProductController {
-    async handle(request: Request, response: Response) {
+    async Create(request: Request, response: Response) {
+        try {
+            const createProduct = new ProductService()
+            if (!request.file) {
+                throw new Error("error upload file")
+            } else {
+                const { originalname, filename } = request.file
+                request.body.banner = filename
+                const product = await createProduct.Create(request.body)
+                return response.json(product)
+            }
+        } catch (error) {
+            console.log(error)
+            return error
+        }
+    }
 
-        const createProductService = new CreateProductService()
-        if (!request.file) {
-            throw new Error("error upload file")
-        } else {
-            const { originalname, filename } = request.file
-            request.body.banner = filename
-            const product = await createProductService.execute(request.body)
+    async Edit(request: Request, response: Response) {
+        try {
+            const editProduct = new ProductService()
+            return await editProduct.Edit(request.body).then((data) => {
+                return response.status(data.statusCode || 500).send(data)
+            })
+        } catch (error) {
+            console.log(error)
+            return response.status(error.statusCode || 500).send(error)
+        }
+    }
 
-            return response.json(product)
+    async Delete(request: Request, response: Response) {
+        try {
+            const deleteProduct = new ProductService()
+            return await deleteProduct.Delete(request.params.id).then((data) => {
+                return response.status(data.statusCode || 500).send(data)
+            })
+        } catch (error) {
+            console.log(error)
+            return response.status(error.statusCode || 500).send(error)
         }
     }
 }
-
-export { CreateProductController, ListByCategoryController }

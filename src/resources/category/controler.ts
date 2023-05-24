@@ -1,26 +1,43 @@
 import { Request, Response } from "express";
-import { CreateCaregoryService, ListCategoryService } from "./service";
+import { CategoryService } from "./service";
 
 
-class ListCategoryController {
-    async handle(request: Request, response: Response) {
+export class CategoryController {
 
-        const listCategoryService = new ListCategoryService();
-
-        const category = await listCategoryService.execute();
-        return response.json(category)
+    async List(request: Request, response: Response) {
+        try {
+            return await new CategoryService().List().then((data) => {
+                return response.status(data.statusCode || 500).send(data)
+            })
+        } catch (error) {
+            return response.status(error.statusCode || 500).send(error)
+        }
+    }
+    async Create(request: Request, response: Response) {
+        try {
+            return await new CategoryService().Create(request.body).then((data) => {
+                return response.status(data.statusCode || 500).send(data)
+            })
+        } catch (error) {
+            return response.status(error.statusCode || 500).send(error)
+        }
+    }
+    async Edit(request: Request, response: Response) {
+        try {
+            return await new CategoryService().Edit(request.body).then((data) => {
+                return response.status(data.statusCode || 500).send(data);
+            })
+        } catch (error) {
+            return response.status(error.statusCode || 500).send(error)
+        }
+    }
+    async Delete(request: Request, response: Response) {
+        try {
+            return await new CategoryService().Delete(request.params.id).then((data) => {
+                return response.status(data.statusCode || 500).send(data);
+            })
+        } catch (error) {
+            return response.status(error.statusCode || 500).send(error)
+        }
     }
 }
-
-class CreateCategoryController {
-    async handle(request: Request, response: Response) {
-
-        const createCaregoryService = new CreateCaregoryService();
-
-        const category = await createCaregoryService.execute(request.body)
-
-        return response.json(category);
-
-    }
-}
-export { CreateCategoryController, ListCategoryController }
