@@ -2,13 +2,15 @@
 
 
 import express from 'express';
-import { ProductController } from '../../resources/product/controler';
+import { ProductController } from '../../resources/product/controller';
 
 import multer from 'multer';
 import { MulterFunction } from '../../config/multer';
-
+import { verifyTokenLogin } from '../../middlewares/verifyToken';
 
 const router = express.Router();
+
+verifyTokenLogin(router)
 
 const upload = multer(new MulterFunction().upload("./tmp"))
 

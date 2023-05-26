@@ -34,7 +34,7 @@ export class ProductController {
         try {
             const editProduct = new ProductService()
             return await editProduct.Edit(request.body).then((data) => {
-                return response.status(data.statusCode || 500).send(data)
+                return response.status(data.statusCode || 200).send(data)
             })
         } catch (error) {
             console.log(error)
@@ -46,7 +46,7 @@ export class ProductController {
         try {
             const deleteProduct = new ProductService()
             return await deleteProduct.Delete(request.params.id).then((data) => {
-                return response.status(data.statusCode || 500).send(data)
+                return response.status(data.statusCode || 200).send(data)
             })
         } catch (error) {
             console.log(error)

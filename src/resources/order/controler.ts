@@ -1,67 +1,51 @@
 import { Request, response, Response } from "express";
-import { CreateOrderService, DetailOrderService, FinishOrderService, ListOrdersService, RemoveOrderService, SendOrderService } from "./service";
+import { OrderService } from "./service";
 
-class CreateOrderController {
-    async handle(request: Request, respose: Response) {
-
-        const createrOrderService = new CreateOrderService();
-        const order = await createrOrderService.execute(request.body);
+export class OrderController {
+    async Create(request: Request, respose: Response) {
+        const createrOrderService = new OrderService();
+        const order = await createrOrderService.Create(request.body);
 
         return respose.json(order);
     }
-}
 
-class RemoveOrderController {
-    async handle(request: Request, response: Response) {
-
+    async Remove(request: Request, response: Response) {
         const order_id = request.query.order_id as string;
-        const removeOrder = new RemoveOrderService();
-        const order = await removeOrder.execute({ order_id });
+        const removeOrder = new OrderService();
+        const order = await removeOrder.Remove({ order_id });
 
         return response.json(order);
     }
-}
 
-class SendOrderController {
-    async handle(request: Request, response: Response) {
+    async Send(request: Request, response: Response) {
 
         const order_id = request.body.order_id as string;
-        const sendOrder = new SendOrderService();
-        const order = await sendOrder.execute(order_id);
+        const sendOrder = new OrderService();
+        const order = await sendOrder.Send(order_id);
 
         return response.json(order);
     }
-}
 
-class ListOrdersController {
-    async handle(request: Request, response: Response) {
-
-        const listOrders = new ListOrdersService();
-        const orders = await listOrders.execute();
+    async List(request: Request, response: Response) {
+        const listOrders = new OrderService();
+        const orders = await listOrders.List();
 
         return response.json(orders);
     }
-}
 
-class DetailOrderController {
-    async handle(request: Request, response: Response) {
-
+    async Detail(request: Request, response: Response) {
         const order_id = request.query.order_id as string;
-        const detailOrder = new DetailOrderService();
-        const order = await detailOrder.execute(order_id);
+        const detailOrder = new OrderService();
+        const order = await detailOrder.Detail(order_id);
+
         return response.json(order)
     }
-}
 
-class FinishOrderController {
-    async handle(request: Request, response: Response) {
-
+    async Finish(request: Request, response: Response) {
         const order_id = request.body.order_id as string;
-        const finishOrder = new FinishOrderService();
-        const order = await finishOrder.execute(order_id);
+        const finishOrder = new OrderService();
+        const order = await finishOrder.Finish(order_id);
 
         return response.json(order);
     }
 }
-
-export { RemoveOrderController, CreateOrderController, SendOrderController, ListOrdersController, DetailOrderController, FinishOrderController }
