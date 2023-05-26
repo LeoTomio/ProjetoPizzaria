@@ -1,29 +1,37 @@
-import { ItemAdd, ItemRemove } from "./interface";
+import { ApiResponse } from "../../../config/apiReturn";
 import prismaClient from "../../../prisma";
+import { ItemAdd, ItemRemove } from "./interface";
 
-class AddItemService {
-    async execute(itemData: ItemAdd) {
-        const item = await prismaClient.item.create({
-            data: {
-                amount: itemData.amount,
-                order_id: itemData.order_id,
-                product_id: itemData.product_id
+export class ItemService {
+    async Create(itemData: ItemAdd) {
+        try {
+            await prismaClient.item.create({
+                data: {
+                    amount: itemData.amount,
+                    order_id: itemData.order_id,
+                    product_id: itemData.product_id
 
-            }
-        })
-        return item
+                }
+            })
+            return new ApiResponse('Item inserido', 200)
+        } catch (error) {
+            console.log(error)
+            return error
+
+        }
+    }
+
+    async Remove(itemData: ItemRemove) {
+        try {
+            await prismaClient.item.delete({
+                where: {
+                    id: itemData.item_id
+                }
+            })
+            return new ApiResponse('Item removido', 200)
+        } catch (error) {
+            console.log(error)
+            return error
+        }
     }
 }
-
-class RemoveItem {
-    async execute(itemData: ItemRemove) {
-        const item = await prismaClient.item.delete({
-            where: {
-                id: itemData.item_id
-            }
-        })
-        return item
-    }
-}
-
-export { AddItemService, RemoveItem }
