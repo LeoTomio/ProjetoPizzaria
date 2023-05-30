@@ -4,6 +4,15 @@ import { CategoryService } from "./service";
 
 export class CategoryController {
 
+    async GetOne(request: Request, response: Response) {
+        try { 
+            return await new CategoryService().GetOne(request.params.id).then((data) => {
+                return response.status(data.statusCode || 200).send(data)
+            })
+        } catch (error) {
+            return response.status(error.statusCode || 500).send(error)
+        }
+    }
     async List(request: Request, response: Response) {
         try {
             return await new CategoryService().List().then((data) => {
