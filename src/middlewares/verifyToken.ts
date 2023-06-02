@@ -1,28 +1,25 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { decode, loginJwt } from './loginJwt';
 import prismaClient from '../prisma';
+import { PayLoad } from '../resources/user/interface';
+import { verify } from 'jsonwebtoken';
 let verifyLogin;
 
 export const verifyTokenLogin = (router: Router) => {
-
     router.use((request: Request, response: Response, next) => {
         const token = request.headers.authorization?.split(' ')[1];
-        verifyLogin = loginJwt(token);
+        try {
+            const { sub } = verify(token, process.env.JWT_SECRET) as PayLoad;
+            request.user_id = sub
 
-        if (verifyLogin.login === false || verifyLogin.incorrectLogin === true) {
-
-            return response
-                .status(verifyLogin.statusCode || 500)
-                .send({ statusCode: verifyLogin.statusCode, msg: verifyLogin.msg });
+            return next();
+        } catch {
+            return response.status(401).end();
         }
-        let dataLogin = decode(token);
-
-        request.body.local = dataLogin;
-
-        next();
     });
-
 };
+
+
 
 export const tokenValidator = async (request: Request) => {
     const token = request.headers.authorization?.split(' ')[1];
@@ -36,3 +33,5 @@ export const tokenValidator = async (request: Request) => {
     })
 
 };
+
+
