@@ -36,7 +36,5 @@ router.use('/product', ProductRoutes)
 
 router.use('/order', OrderRoutes)
 
-
-
 export { router };
 

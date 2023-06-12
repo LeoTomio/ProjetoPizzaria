@@ -6,11 +6,31 @@ import moment from 'moment'
 import path from 'path'
 export class ProductService {
 
-    async List(category_id: string) {
+    async GetOne(product_id: string) {
+        try {
+            return await prismaClient.product.findUnique({
+                where: {
+                    id: product_id
+                }
+            })
+        } catch (error) {
+            console.log(error)
+            return error
+        }
+    }
+
+    async List() {
         try {
             return await prismaClient.product.findMany({
-                where: {
-                    category_id: category_id
+                select: {
+                    id: true,
+                    name: true,
+                    price: true,
+                    category_id: true,
+                    description: true,
+                },
+                orderBy: {
+                    name: 'asc'
                 }
             })
         } catch (error) {

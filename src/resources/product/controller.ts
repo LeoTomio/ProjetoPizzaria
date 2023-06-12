@@ -2,10 +2,22 @@ import { Request, Response } from "express";
 import { ProductService } from "./service";
 
 export class ProductController {
+
+    async GetOne(request: Request, response: Response) {
+        try {
+            const listProduct = new ProductService();
+            const products = await listProduct.GetOne(String(request.query.product_id))
+            return response.json(products)
+        } catch (error) {
+            console.log(error)
+            return error
+        }
+    }
+
     async List(request: Request, response: Response) {
         try {
             const listProduct = new ProductService();
-            const products = await listProduct.List(String(request.query.category_id))
+            const products = await listProduct.List()
             return response.json(products)
         } catch (error) {
             console.log(error)

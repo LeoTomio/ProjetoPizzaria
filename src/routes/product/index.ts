@@ -14,6 +14,8 @@ verifyTokenLogin(router)
 
 const upload = multer(new MulterFunction().upload("./tmp"))
 
+router.route('/:id').get(new ProductController().GetOne)
+
 router.route('/').get(new ProductController().List)
 
 router.route('/').post(upload.single('file'), new ProductController().Create)
