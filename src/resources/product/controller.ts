@@ -6,7 +6,7 @@ export class ProductController {
     async GetOne(request: Request, response: Response) {
         try {
             const listProduct = new ProductService();
-            const products = await listProduct.GetOne(String(request.query.product_id))
+            const products = await listProduct.GetOne(String(request.params.id))
             return response.json(products)
         } catch (error) {
             console.log(error)

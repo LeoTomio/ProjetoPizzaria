@@ -28,6 +28,7 @@ export class ProductService {
                     price: true,
                     category_id: true,
                     description: true,
+                    banner: true
                 },
                 orderBy: {
                     name: 'asc'
@@ -41,12 +42,14 @@ export class ProductService {
 
     async Create(response: Product) {
         try {
-            await prismaClient.product.create({
+            return await prismaClient.product.create({
                 data: {
                     ...response
+                },
+                select: {
+                    id: true,
                 }
             })
-            return new ApiResponse('Produto Adicionado', 200)
         } catch (error) {
             console.log(error)
             return error

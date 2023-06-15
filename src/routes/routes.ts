@@ -6,12 +6,10 @@ import OrderRoutes from './order/index';
 import ProductRoutes from './product/index';
 const router = Router();
 
-
 // Rotas user
 router.post('/users', new CreateUserController().handle)
 
 router.post('/session', new AuthUserController().handle)
-
 
 router.use(async (request, response, next) => {
   let verified = await tokenValidator(request);
