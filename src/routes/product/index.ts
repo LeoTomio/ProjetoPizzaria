@@ -18,7 +18,8 @@ router.route('/:id').get(new ProductController().GetOne)
 
 router.route('/').get(new ProductController().List)
 
-router.route('/').post(upload.single('file'), new ProductController().Create)
+// router.route('/').post(upload.single('file'), new ProductController().Create)
+router.route('/').post(new ProductController().Create)
 
 router.route('/').put(new ProductController().Edit)
 

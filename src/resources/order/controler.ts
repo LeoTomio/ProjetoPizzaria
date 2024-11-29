@@ -10,18 +10,15 @@ export class OrderController {
     }
 
     async Remove(request: Request, response: Response) {
-        const order_id = request.query.order_id as string;
         const removeOrder = new OrderService();
-        const order = await removeOrder.Remove({ order_id });
+        const order = await removeOrder.Remove(request.params.id);
 
         return response.json(order);
     }
 
     async Send(request: Request, response: Response) {
-
-        const order_id = request.body.order_id as string;
         const sendOrder = new OrderService();
-        const order = await sendOrder.Send(order_id);
+        const order = await sendOrder.Send(request.params.id);
 
         return response.json(order);
     }
@@ -34,17 +31,15 @@ export class OrderController {
     }
 
     async Detail(request: Request, response: Response) {
-        const order_id = request.query.order_id as string;
         const detailOrder = new OrderService();
-        const order = await detailOrder.Detail(order_id);
+        const order = await detailOrder.Detail(request.params.id);
 
         return response.json(order)
     }
 
     async Finish(request: Request, response: Response) {
-        const order_id = request.body.order_id as string;
         const finishOrder = new OrderService();
-        const order = await finishOrder.Finish(order_id);
+        const order = await finishOrder.Finish(request.params.id);
 
         return response.json(order);
     }

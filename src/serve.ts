@@ -2,18 +2,21 @@ import cors from 'cors'
 import express, { NextFunction, Request, Response } from 'express'
 import 'express-async-errors'
 import path from 'path'
-
 import { router } from './routes/routes'
+import fileUpload from 'express-fileupload'
 
 const app = express();
 app.use(express.json());
 app.use(cors())
+app.use(fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 } // max 50 mb
+}))
+app.use(router);
 
 app.use(
     '/files',
     express.static(path.resolve(__dirname, '..', 'tmp'))
 )
-app.use(router);
 
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
@@ -32,6 +35,6 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
 })
 
 
-app.listen(3001, () => {
-    console.log('Servidor rodando na porta 3001')
+app.listen(process.env.PORT, () => {
+    console.log(`Servidor rodando na porta ${process.env.PORT}`)
 })

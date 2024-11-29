@@ -1,13 +1,13 @@
 import { ApiResponse } from "../../config/apiReturn";
 import prismaClient from "../../prisma";
-import { OrderRemove, OrderRequest } from "./interface";
+import { OrderRequest } from "./interface";
 
 export class OrderService {
-    async Remove(removeData: OrderRemove) {
+    async Remove(id: string) {
         try {
             await prismaClient.order.delete({
                 where: {
-                    id: removeData.order_id
+                    id
                 }
             })
             return new ApiResponse('Pedido removido', 200)
@@ -19,13 +19,14 @@ export class OrderService {
 
     async Create(orderData: OrderRequest) {
         try {
-            await prismaClient.order.create({
+            return await prismaClient.order.create({
                 data: {
                     table: orderData.table,
                     name: orderData.name,
                 }
             })
-            return new ApiResponse('Pedido adicionado', 200)
+
+            // return new ApiResponse('Pedido adicionado', 200)
         } catch (error) {
             console.log(error)
             return error
@@ -67,24 +68,53 @@ export class OrderService {
         }
     }
 
-    async Detail(order_id: string) {
+    async Detail(order_id) {
         try {
-            const order = await prismaClient.item.findMany({
+            // Consulta ao banco de dados
+            const items = await prismaClient.item.findMany({
                 where: {
                     order_id: order_id
                 },
                 include: {
                     product: true,
                     order: true
-
                 }
-            })
-            return order
+            });
+            if (items.length === 0) {
+                return { message: "Nenhum dado encontrado para este pedido." };
+            }
+
+            const orderDetails = {
+                id: items[0].order.id,
+                table: items[0].order.table,
+                status: items[0].order.status,
+                name: items[0].order.name,
+                created_at: items[0].order.created_at,
+                updated_at: items[0].order.updated_at,
+                products: []
+            };
+
+            items.forEach(item => {
+                orderDetails.products.push({
+                    product_id: item.product.id,
+                    name: item.product.name,
+                    price: item.product.price,
+                    description: item.product.description,
+                    banner: item.product.banner,
+                    category_id: item.product.category_id,
+                    amount: item.amount
+                });
+            });
+
+            return orderDetails;
+
         } catch (error) {
-            console.log(error)
-            return error
+            console.error(error);
+            throw error;
         }
     }
+
+
 
     async Finish(order_id: string) {
         try {
