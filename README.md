@@ -17,3 +17,13 @@ https://www.figma.com/file/yTPA50bLeQdJOCrg5sAOqU/Pizzaria-Sujeito?node-id=0-1
 6) Pagina para listar/editar/deletar produtos 
 7) Só pode ter uma mesa com aquele numero em aberto ao mesmo tempo ( verificar no banco se nao existe aquela mesa com o status de 'rascunho' )
 
+
+
+# Utilizado
+
+* Node
+* Typescript
+* Prisma
+* Postgresql
+* Cloudinary - Armazenamento de imagens
+* Neon - banco de dados ( produção )
