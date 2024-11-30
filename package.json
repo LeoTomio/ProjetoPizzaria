@@ -7,8 +7,8 @@
     "dev": "ts-node-dev src/serve.ts",
     "build": "tsc --build",
     "start": "node dist/server.js",
-    "vercel-build":"prisma:generate && prisma migrate deploy",
-    "prisma:generate":"npx prisma generate",
+    "vercel-build":"npx prisma:generate && npx prisma migrate deploy",
+    "prisma:generate":"prisma generate",
     "migrations": "npx prisma migrate dev"
   },
   "devDependencies": {
