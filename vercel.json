@@ -7,8 +7,5 @@
             "src": "/(.*)",
             "dest": "dist/server.js"
         }
-    ],
-    "compilerOptions": {
-        "outDir": "./dist"
-    }
+    ]
 }
