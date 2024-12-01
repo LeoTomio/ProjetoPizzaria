@@ -1,15 +1,11 @@
 {
     "version": 2,
     "buildCommand": "npm run build && npm run vercel-build",
-    "functions": {
-        "api/server.js": {
-            "runtime": "nodejs16.0"
-        }
-    },
+    "outputDirectory": "dist",
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "api/server.js"
+            "dest": "dist/server.js"
         }
     ]
 }
