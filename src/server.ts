@@ -33,13 +33,12 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     })
 
 })
-
-// export default app
-
-
-
-
-
 app.listen(process.env.PORT, () => {
     console.log(`Servidor rodando na porta ${process.env.PORT}`)
 })
+
+export default app
+
+
+
+
