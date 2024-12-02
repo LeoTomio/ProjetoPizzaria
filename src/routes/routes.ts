@@ -6,6 +6,9 @@ import OrderRoutes from './order/index';
 import ProductRoutes from './product/index';
 const router = Router();
 
+router.get('/status', (request, response) => {
+  response.status(200).json({ message: "funcionando" });
+});
 // Rotas user
 router.post('/users', new CreateUserController().handle)
 
