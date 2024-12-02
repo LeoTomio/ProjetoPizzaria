@@ -1,6 +1,7 @@
 {
     "version": 2,
     "buildCommand": "npm run build && npm run vercel-build",
+    "outputDirectory": "dist",
     "builds": [
       {
         "src": "src/server.js",
