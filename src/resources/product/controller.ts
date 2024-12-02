@@ -40,8 +40,7 @@ export class ProductController {
             if (!request.files || Object.keys(request.files).length === 0) {
                 throw new Error("error upload file image")
             } else {
-                const file: UploadedFile = request.files['file']
-
+                const file: UploadedFile = request.files['file'] as UploadedFile
                 const resultFile: UploadApiResponse = await new Promise((resolve, reject) => {
                     cloudinary.uploader.upload_stream({}, function (error, result) {
                         if (error) {

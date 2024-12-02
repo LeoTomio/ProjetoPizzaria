@@ -1,9 +1,8 @@
 import cors from 'cors'
 import express, { NextFunction, Request, Response } from 'express'
 import 'express-async-errors'
-import path from 'path'
-import { router } from './routes/routes'
 import fileUpload from 'express-fileupload'
+import { router } from './routes/routes'
 
 const app = express();
 app.use(express.json());
@@ -27,8 +26,6 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     })
 
 })
-
-
 app.listen(process.env.PORT, () => {
     console.log(`Servidor rodando na porta ${process.env.PORT}`)
 })
