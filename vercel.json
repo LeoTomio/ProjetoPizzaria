@@ -1,17 +1,17 @@
 {
     "version": 2,
-    "buildCommand": "npm run build && npm run vercel-build",
-    "outputDirectory": "dist",
-    "functions": {
-      "api/index.js": {
-        "runtime": "nodejs18.x"
-      }
-    },
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "dist/server.js"
-      }
+    "builds": [
+        {
+            "src": "dist/server.js",
+            "use": "@vercel/node",
+            "config": {"includeFiles": ["dist/**"]}
+        }
+    ],
+    "routes":[
+        {
+            "src":"/(.*)",
+            "dest":"dist/server.js"
+        }
     ]
-  }
-  
+
+}
