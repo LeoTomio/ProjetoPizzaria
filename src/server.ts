@@ -13,12 +13,6 @@ app.use(fileUpload({
 }))
 app.use(router);
 
-app.use(
-    '/files',
-    express.static(path.resolve(__dirname, '..', 'tmp'))
-)
-
-
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     if (error instanceof Error) {
         //Se for uma instancia do tipo error
@@ -33,10 +27,10 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     })
 
 })
-// app.listen(process.env.PORT, () => {
-//     console.log(`Servidor rodando na porta ${process.env.PORT}`)
-// })
-module.exports = app;
+
+app.listen(process.env.PORT, () => {
+    console.log(`Servidor rodando na porta ${process.env.PORT}`)
+})
 
 
 
