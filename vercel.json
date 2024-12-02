@@ -1,22 +1,11 @@
 {
-  "version": 2,
-  "buildCommand": "npm run build && npm run vercel-build",
-  "outputDirectory": "dist",
   "builds": [
     {
-      "src": "dist/server.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": [
-          "dist/**"
-        ]
-      }
+      "src": "dist/index.js",
+      "use": "@vercel/node"
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/"
-    }
+  "rewrites" : [
+    { "source": "/(.*)", "destination": "/dist/server.js" }
   ]
 }
