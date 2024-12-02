@@ -33,10 +33,10 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     })
 
 })
-app.listen(process.env.PORT, () => {
-    console.log(`Servidor rodando na porta ${process.env.PORT}`)
-})
-
+// app.listen(process.env.PORT, () => {
+//     console.log(`Servidor rodando na porta ${process.env.PORT}`)
+// })
+module.exports = app;
 
 
 
